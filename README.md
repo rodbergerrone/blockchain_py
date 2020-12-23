@@ -3,19 +3,28 @@
 This is simulation of a blockchain network and clients written in Python and HTKM based on Udemy toturial.
 It consist of Python scrpits that runs backend of the blockchain network and clients, as well as HTML instances that display user interface (frontend).
 
-$ tree
-
 project_root/
+
 │
+
 ├── blockchain/              # Blockchain network source code (Backend & Frontend)
-├──── static/                # Css and Js for Frontend
-├──── templates/             # HTML for Frontend
-├──── blockchain.py          # Python script for Backend
+
+│ ├── static/                # Css and Js for Frontend
+
+│ ├── templates/             # HTML for Frontend
+
+│ └── blockchain.py          # Python script for Backend
+
 ├── blockchain_client/       # Blockchain user source code (Backend & Frontend)
-├──── static/                # Css and Js for Frontend
-├──── templates/             # HTML for Frontend
-├──── blockchain_client.py   # Python script for Backend
-├── README
+
+│ ├── static/                # Css and Js for Frontend
+
+│ ├── templates/             # HTML for Frontend
+
+│ └── blockchain_client.py   # Python script for Backend
+
+└── README
+
 
 ## Dependencies
 - works with Python 3.7
@@ -39,5 +48,9 @@ Remeber, this simulation runs on local computer therefore you need to start bloc
 3. To start the blockchain client, go to blockchain_client folder and execute the command below: python blockchain_client.py -p 8080
 4. To add a new blockchain client, execute the command with a port that is not already used. E.g., python blockchain_client.py -p 8081, python blockchain_client.py -p 8082, etc.
 5. You can access the blockchain frontend and blockchain client dashboards from your browser by going to localhost:5000 and localhost:8080
+
+## Task list
+- [x] Finish basic blockchain network and users simulation
+- [ ] Implement coims exchange for FIAT currency (e.g. EURO) in cryptoATM
 
 **This is just a prototype solution and need some fixing with regard to security.**
