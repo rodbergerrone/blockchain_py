@@ -15,3 +15,6 @@ project_root/
 ├──── blockchain_client.py   # Python script for Backend
 ├── README
 
+## Dependencies
+- works with Python 3.7
+- need to install:
