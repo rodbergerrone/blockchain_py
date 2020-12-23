@@ -18,11 +18,22 @@ project_root/
 ## Dependencies
 - works with Python 3.7
 - need to install:
+  - binascii
+  - hashlib
+  - json
+  - requests
+  - flask
+  - flask_cors
+  - collections
+  - time
+  - Crypto
+  - uuid
+  - urllib
 
 ## How to run blockchain_py
 Remeber, this simulation runs on local computer therefore you need to run nodes and clients on different ports. You do need to worry about restricted resources on your local computer as there is CORS mechanism implemented.
 1. To start a blockchain node, go to blockchain folder and execute the command below: python blockchain.py -p 5000
-2. To add a new node to blockchain, execute the command with a port that is not already used. e.g., python blockchain.py -p 5001, python blockchain.py -p 5002, etc.
+2. To add a new node to blockchain, execute the command with a port that is not already used. E.g., python blockchain.py -p 5001, python blockchain.py -p 5002, etc.
 3. To start the blockchain client, go to blockchain_client folder and execute the command below: python blockchain_client.py -p 8080
-4. To add a new blockchain client, execute the command with a port that is not already used. e.g., python blockchain_client.py -p 8081, python blockchain_client.py -p 8082, etc.
+4. To add a new blockchain client, execute the command with a port that is not already used. E.g., python blockchain_client.py -p 8081, python blockchain_client.py -p 8082, etc.
 5. You can access the blockchain frontend and blockchain client dashboards from your browser by going to localhost:5000 and localhost:8080
