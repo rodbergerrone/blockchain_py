@@ -5,9 +5,13 @@ It consist of Python scrpits that runs backend of the blockchain network and cli
 
 project_root/
 │
-├── project/  # Project source code
-├── docs/
+├── blockchain/              # Blockchain network source code (Backend & Frontend)
+├──── static/                # Css and Js for Frontend
+├──── templates/             # HTML for Frontend
+├──── blockchain.py          # Python script for Backend
+├── blockchain_client/       # Blockchain user source code (Backend & Frontend)
+├──── static/                # Css and Js for Frontend
+├──── templates/             # HTML for Frontend
+├──── blockchain_client.py   # Python script for Backend
 ├── README
-├── HOW_TO_CONTRIBUTE
-├── CODE_OF_CONDUCT
-├── examples.py
+
