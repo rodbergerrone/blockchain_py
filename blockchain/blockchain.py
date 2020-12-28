@@ -8,7 +8,7 @@ description     : A blockchain network backend implementation in Python that pro
 author          : Roger Burek-Bors with instruction from Dr Zakwan Jaroucheh lecturer of <<Build a Blockchain &
                   Cryptocurrency using Python>> on Udemy
 date_created    : 2020-12-22
-version         : 0.1
+version         : 0.2
 usage           : The script runs locally therefore to simulate various nodes it needs a specified port to listen to.
                   You can run following instances:
                   - python blockchain.py
