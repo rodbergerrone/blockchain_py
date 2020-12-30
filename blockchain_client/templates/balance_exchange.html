@@ -45,40 +45,57 @@
 
           <div class="card-body">
             <h4 class="card-title">Balance & Exchange Rates</h4>
-            <p class="card-text">Enter your public key and click on "Check Balance & Rates" button for your coin balance and exchange rates in EURO and PLN</p>
+            <p class="card-text">Enter your public key and double click on "Check Balance & Rates" button for your coin balance and exchange rates in EURO and PLN</p>
           </div>
 
         </div>
       </div>
     </div>
 
-    <div class="container alert alert-secondary">
+        <div class="container alert alert-secondary">
+        <form id="balance_form">
+            <div class="row">
+                <label class="col-sm-2">Your Public Key:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="your_public_key1" id="your_public_key1" class="form-control">
+                </div>
+            </div>
 
-        <div class="row">
-          <label class="col-sm-2">Your public key:</label>
-          <div class="col-sm-10">
-            <textarea id="your_private_key" rows="1" class="form-control"></textarea>
-          </div>
-        </div>
+            <br>
 
-        <br>
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <input type="button" name="check_balance" id="check_balance" class="btn btn-primary btn-lg" value="Check Balance & Rates">
+                </div>
+            </div>
 
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <input type="button" id="check_balance" class="btn btn-primary btn-lg" value="Check Balance & Rates">
-          </div>
-        </div>
-
+        </form>
     </div>
+
 
     <br>
-    <!-- Balance Table -->
+
+    <!-- List of nodes -->
     <div class="container">
-      <table id="balance_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-      </table>
+      <div class="row">
+
+        <div class="col-lg-12" id="list_rates1">
+
+        </div>
+
+        <div class="col-lg-12" id="list_rates2">
+
+        </div>
+
+        <div class="col-lg-12" id="list_rates3">
+
+        </div>
+
+      </div>
     </div>
 
-    <!-- Exchange -->
+
+    <!-- Withdrawal -->
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -194,41 +211,38 @@
     <script>
         $(function() {
 
-            $('#check_balance').click(function(){
-
-              $.ajax({
-                    url: "/wallet/balance",
-                    type: "POST",
-                    dataType: 'json',
-                    data: $('#transaction_form').serialize(),
+            $('#check_balance').click(function() {
+                $.ajax({
+                    url: '/wallet/rates',
+                    type: 'GET',
                     success: function(response) {
-                        document.getElementById('your_public_key').value = response['your_public_key'];
-
-                        console.log(response);
-                        //Generate Balance Table
-                        count = 1;
-
-                        var balance = [count,
-                                  response["coin_amount"],
-                                  response["amount_in_eur"],
-                                  response["amount_in_pln"]];
-                        //transactions.push(balance);
-
-                        $('#balance_table').dataTable( {
-                        data: balance,
-                        columns: [{ title: "#" },
-                                { title: "Amount of coins"},
-                                { title: "Amount in EUR"},
-                                { title: "Amount in PLN"}],
-                        columnDefs: [ {targets: [1,2,3], render: $.fn.dataTable.render.ellipsis( 25 )}]
-                    } );
+                        document.getElementById('list_rates1').innerHTML = 'Amount of coins: ' + response['coin_amount'];
+                        document.getElementById('list_rates2').innerHTML = 'Value in EUR: ' + response['amount_in_eur'];
+                        document.getElementById('list_rates3').innerHTML = 'Value in PLN: ' + response['amount_in_pln'];
                     },
                     error: function(error) {
                         console.log(error);
-
                     }
-              });
+                });
             });
+
+            $('#check_balance').click(function() {
+                $.ajax({
+                    url: '/wallet/balance',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: $('#balance_form').serialize(),
+                    success: function(response) {
+                        document.getElementById('your_private_key1').value = '';
+                        window.location.reload();
+                    },
+
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+
 
             $("#generate_withdrawal").click(function() {
                 $.ajax({

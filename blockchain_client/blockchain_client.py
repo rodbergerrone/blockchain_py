@@ -25,6 +25,7 @@ import requests
 import urllib.request
 from datetime import date, timedelta
 from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
 from collections import OrderedDict, defaultdict
 from Crypto.Hash import SHA
 from Crypto.PublicKey import RSA
@@ -35,6 +36,7 @@ class Ledger:
 
     def __init__(self):
         self.ledger = defaultdict(int)
+        self.rates = defaultdict(int)
 
     def update_ledger(self, recipient_public_key, sender_public_key, amount):
         self.ledger[recipient_public_key] += int(amount)
@@ -45,6 +47,9 @@ class Ledger:
 
     def reward_new_wallet(self, public_key):
         self.ledger[public_key] += 5
+
+    def save_rates(self, all_rates):
+        self.rates = all_rates
 
 
 class Transaction:
@@ -74,6 +79,7 @@ ledger = Ledger()
 
 # Running a node in Flask
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/')
@@ -133,11 +139,18 @@ def view_balance():
     return render_template('balance_exchange.html')
 
 
+@app.route('/wallet/rates', methods=['GET'])
+def get_rates():
+    response = ledger.rates
+    print(response)
+    return response, 200
+
+
 @app.route('/wallet/balance', methods=['POST'])
 def check_balance():
 
-    your_private_key = request.form['your_private_key']
-    coin_amount = ledger.ledger[your_private_key]
+    your_public_key = request.form['your_public_key1']
+    coin_amount = ledger.ledger[your_public_key]
 
     # Check BTC-EUR rate (BTC is used as referencing coin)
     url = "https://api.bitbay.net/rest/trading/orderbook/BTC-EUR"
@@ -163,6 +176,7 @@ def check_balance():
     amount_in_pln = coin_amount * btceur_exchange_rate * eurpln_exchange_rate
 
     response = {'coin_amount': coin_amount, 'amount_in_eur': round(amount_in_eur), 'amount_in_pln': round(amount_in_pln)}
+    ledger.save_rates(response)
 
     return jsonify(response), 200
 
